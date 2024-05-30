@@ -109,6 +109,16 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
 [SAP AI Core is All You Need | 8. Consuming and Sampling from Shakespeare Language Models](https://community.sap.com/t5/technology-blogs-by-sap/sap-ai-core-is-all-you-need-8-consuming-and-sampling-from-shakespeare/ba-p/13708364)
 - [ai-core/ai-core-app](./ai-core/ai-core-app)
 
+ai-core-training-setup/
+├── requirements.txt
+├── ShakespeareanGenerator/
+│   ├── logger.py
+│   ├── artifact_manager.py
+│   └── parameters.py
+├── Dockerfile
+└── main.py
+
+
 ## Ready to Dive In?
 
 We're excited to embark on this journey with you. By the end of this series, you’ll have a comprehensive understanding of building, fine-tuning, deploying, and consuming AI models using SAP AI Core. Stay tuned and get ready to unlock the potential of SAP AI Core and Launchpad!
