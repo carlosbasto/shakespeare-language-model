@@ -15,7 +15,7 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
   - Understanding Transformers: Explore the architecture and attention mechanisms.
   - Implementing Transformers from Scratch: Learn to create a language model tailored to specific needs.
 
-[SAP AI Core is All You Need | 1. Building Your Own Language Model with Transformers](./1_Building_Language_Model_with_Transformers)
+[SAP AI Core is All You Need | 1. Building Your Own Language Model with Transformers](http://google.com)
 
 ### 2. Setting the Stage for a Shakespeare-Language Model
 **Introduction**: Ensure everything is operational for deploying a Shakespearean Language Model.
