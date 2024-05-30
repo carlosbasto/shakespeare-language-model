@@ -16,7 +16,7 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
   - Implementing Transformers from Scratch: Learn to create a language model tailored to specific needs.
 
 [SAP AI Core is All You Need | 1. Building Your Own Language Model with Transformers](https://community.sap.com/t5/technology-blogs-by-sap/sap-ai-core-is-all-you-need-1-building-your-own-language-model-with/ba-p/13687781)
-[ai-core/ai-core-training](./ai-core/ai-core-training)
+- [ai-core/ai-core-training](./ai-core/ai-core-training)
 
 ### 2. Setting the Stage for a Shakespeare-Language Model
 **Introduction**: Ensure everything is operational for deploying a Shakespearean Language Model.
@@ -28,9 +28,9 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
   - Creating Docker Registry and Object Store Secrets: Manage execution outputs and input files.
 
 [SAP AI Core is All You Need | 2. Setting the Stage for a Shakespeare-Language Model](https://community.sap.com/t5/technology-blogs-by-sap/sap-ai-core-is-all-you-need-2-setting-the-stage-for-a-shakespeare-language/ba-p/13689458)
-[ai-core/ai-core-training-setup](./ai-core/ai-core-training-setup)
-[ai-core/ai-core-training](./ai-core/ai-core-training)
-[ai-core/ai-core-datasets](./ai-core/ai-core-datasets)
+- [ai-core/ai-core-training-setup](./ai-core/ai-core-training-setup)
+- [ai-core/ai-core-training](./ai-core/ai-core-training)
+- [ai-core/ai-core-datasets](./ai-core/ai-core-datasets)
 
 ### 3. Workflow, Configuration, and Shakespeare Language Model Training
 **Introduction**: Learn to containerize and orchestrate AI text generation pipelines using Docker and Argo Workflows.
@@ -41,9 +41,9 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
   - Deploying the Training Workflow: Deploy the workflow template on SAP AI Core.
 
 [SAP AI Core is All You Need | 3. Workflow, Configuration, and Shakespeare Language Model Training](https://community.sap.com/t5/technology-blogs-by-sap/sap-ai-core-is-all-you-need-3-workflow-configuration-and-shakespeare/ba-p/13689844)
-[ai-core/ai-core-training-setup](./ai-core/ai-core-training-setup)
-[ai-core/ai-core-training](./ai-core/ai-core-training)
-[ai-core/templates](./ai-core/templates)
+- [ai-core/ai-core-training-setup](./ai-core/ai-core-training-setup)
+- [ai-core/ai-core-training](./ai-core/ai-core-training)
+- [ai-core/templates](./ai-core/templates)
 
 ### 4. Improving Model Training Efficiency with Checkpointing/Resuming
 **Introduction**: Dive into checkpointing, a technique to save and resume training efficiently.
@@ -55,9 +55,9 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
   - Deploying the Checkpointer Workflow: Manage the checkpointing process effectively.
 
 [SAP AI Core is All You Need | 4. Improving Model Training Efficiency with Checkpointing/Resuming](https://community.sap.com/t5/technology-blogs-by-sap/sap-ai-core-is-all-you-need-4-improving-model-training-efficiency-with/ba-p/13690949)
-[ai-core/ai-core-checkpointer-setup](./ai-core/ai-core-checkpointer-setup)
-[ai-core/ai-core-checkpointer](./ai-core/ai-core-checkpointer)
-[ai-core/templates](./ai-core/templates)
+- [ai-core/ai-core-checkpointer-setup](./ai-core/ai-core-checkpointer-setup)
+- [ai-core/ai-core-checkpointer](./ai-core/ai-core-checkpointer)
+- [ai-core/templates](./ai-core/templates)
 
 ### 5. Fine-Tuning with Low-Rank Adaptation (LoRA)
 **Introduction**: Explore fine-tuning pre-trained models to excel in specific tasks.
@@ -69,10 +69,10 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
   - Deploying the Fine-Tuning Workflow: Deploy the fine-tuning workflow using SAP AI Core.
 
 [SAP AI Core is All You Need | 5. Fine-Tuning with Low-Rank Adaptation (LoRA)](https://community.sap.com/t5/technology-blogs-by-sap/sap-ai-core-is-all-you-need-5-fine-tuning-with-low-rank-adaptation-lora/ba-p/13694357)
-[ai-core/ai-core-fine-tuner-setup](./ai-core/ai-core-fine-tuner-setup)
-[ai-core/ai-core-fine-tuner](./ai-core/ai-core-fine-tuner)
-[ai-core/templates](./ai-core/templates)
-[ai-core/ai-core-datasets](./ai-core/ai-core-datasets)
+- [ai-core/ai-core-fine-tuner-setup](./ai-core/ai-core-fine-tuner-setup)
+- [ai-core/ai-core-fine-tuner](./ai-core/ai-core-fine-tuner)
+- [ai-core/templates](./ai-core/templates)
+- [ai-core/ai-core-datasets](./ai-core/ai-core-datasets)
 
 ### 6. Serving Shakespeare Model using SAP AI Core and KServe
 **Introduction**: Deploy and serve AI models using SAP AI Core and KServe, focusing on the Shakespeare Language Model.
@@ -83,8 +83,8 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
   - Logging in MLOps: Monitor and troubleshoot the deployment process.
 
 [SAP AI Core is All You Need | 6. Serving Shakespeare Model using SAP AI Core and KServe](https://community.sap.com/t5/technology-blogs-by-sap/sap-ai-core-is-all-you-need-6-serving-shakespeare-model-using-sap-ai-core/ba-p/13696608)
-[ai-core/ai-core-generator](./ai-core/ai-core-generator)
-[ai-core/templates](./ai-core/templates)
+- [ai-core/ai-core-generator](./ai-core/ai-core-generator)
+- [ai-core/templates](./ai-core/templates)
 
 ### 7. Deploying Language Models for Text Generation
 **Introduction**: Cover serving templates, Docker builders, and deployment to bring the models to life.
@@ -95,9 +95,9 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
   - Deploying with SAP AI Core: Detailed guide to model deployment.
 
 [SAP AI Core is All You Need | 7. Deploying Language Models for Text Generation](https://community.sap.com/t5/technology-blogs-by-sap/sap-ai-core-is-all-you-need-7-deploying-language-models-for-text-generation/ba-p/13712187)
-[ai-core/ai-core-generator](./ai-core/ai-core-generator)
-[ai-core/ai-core-generator-tst](./ai-core/ai-core-generator-tst)
-[ai-core/templates](./ai-core/templates)
+- [ai-core/ai-core-generator](./ai-core/ai-core-generator)
+- [ai-core/ai-core-generator-tst](./ai-core/ai-core-generator-tst)
+- [ai-core/templates](./ai-core/templates)
 
 ### 8. Consuming and Sampling from Shakespeare Language Models
 **Introduction**: Deploy and consume the fine-tuned models for Shakespeare-style text transfer.
@@ -107,7 +107,7 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
   - Creating an Application: Build a user-friendly application to interact with the models.
 
 [SAP AI Core is All You Need | 8. Consuming and Sampling from Shakespeare Language Models](https://community.sap.com/t5/technology-blogs-by-sap/sap-ai-core-is-all-you-need-8-consuming-and-sampling-from-shakespeare/ba-p/13708364)
-[ai-core/ai-core-app](./ai-core/ai-core-app)
+- [ai-core/ai-core-app](./ai-core/ai-core-app)
 
 ## Ready to Dive In?
 
