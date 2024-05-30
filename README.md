@@ -113,6 +113,6 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
 
 We're excited to embark on this journey with you. By the end of this series, you’ll have a comprehensive understanding of building, fine-tuning, deploying, and consuming AI models using SAP AI Core. Stay tuned and get ready to unlock the potential of SAP AI Core and Launchpad!
 
-For all the code needed for this series, including Docker images, Python scripts, templates, and more, please explore this repository.
+For all the code needed for this series, including Dockerfiles, Python scripts, templates, and more, please explore this repository.
 
 Let's get started!
