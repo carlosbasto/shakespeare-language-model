@@ -2,7 +2,7 @@
 
 ## Welcome to the "SAP AI Core is All You Need" Series!
 
-We're thrilled to have you join us on this exciting journey into the world of AI and language models using SAP AI Core and SAP AI Launchpad. This repository contains all the code needed for our series, guiding you through the powerful capabilities of SAP AI Core to build, deploy, and manage your own AI models with ease.
+We are happy to have you join us on this exciting (or at least I think it is) journey into the world of AI and Language Models using SAP AI Core and SAP AI Launchpad. This introductory blog will give you a sneak peek into what you can expect from each installment of this series, as well as offer you an agenda to organize the way you read the blogs. Our aim is to guide you through the powerful capabilities of SAP AI Core, helping you build, deploy, and manage your own AI models with ease. And guess what? We'll be doing this together for the next several blogs. Hold tight!
 
 ## What to Expect from the Series
 
@@ -63,7 +63,7 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
 **Introduction**: Explore fine-tuning pre-trained models to excel in specific tasks.
 
 - **Key Concepts**:
-  - Understanding Fine-Tuning: Learn its significance in machine learning.
+  - Understanding Fine-Tuning: Learn its significance in Artificial Intelligence.
   - Defining the Fine-Tuning Task: Focus on language style transfer to Shakespearean English.
   - Implementing LoRA: Step-by-step guide using PyTorch.
   - Deploying the Fine-Tuning Workflow: Deploy the fine-tuning workflow using SAP AI Core.
@@ -100,7 +100,7 @@ In this series, we'll cover a wide range of topics to equip you with the knowled
 - [ai-core/templates](./ai-core/templates)
 
 ### 8. Consuming and Sampling from Shakespeare Language Models
-**Introduction**: Deploy and consume the fine-tuned models for Shakespeare-style text transfer.
+**Introduction**: Deploy and consume the fine-tuned models for Shakespeare-style text transfer and create an application for language models consumption.
 
 - **Key Concepts**:
   - Deploying the Fine-Tuned Model: Step-by-step deployment guide.
