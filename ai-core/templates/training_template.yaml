@@ -77,7 +77,7 @@ spec:
             none:
               {}
     container:
-      image: docker.io/carlosbasto/shakespeare-setup:0.0.1
+      image: docker.io/<your_docker_user>/shakespeare-setup:0.0.1
       imagePullPolicy: Always
       command: ["/bin/sh", "-c"]
       args: 
@@ -130,7 +130,7 @@ spec:
             none:
               {}               
     container:
-      image: docker.io/carlosbasto/shakespeare-training:0.0.1
+      image: docker.io/<your_docker_user>/shakespeare-training:0.0.1
       imagePullPolicy: Always
       command: ["/bin/sh", "-c"]
       args: 
