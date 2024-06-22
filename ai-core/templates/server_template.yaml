@@ -36,7 +36,7 @@ spec:
          maxReplicas: 5
          containers:
          - name: kserve-container
-           image: docker.io/carlosbasto/shakespeare-server-generator:0.0.1
+           image: docker.io/<your_docker_user>/shakespeare-server-generator:0.0.1
            ports:
              - containerPort: 9001
                protocol: TCP   
@@ -45,7 +45,7 @@ spec:
              - "python /app/src/main.py"
            env:
             - name: STORAGE_URI # Required
-              value: "{{inputs.artifacts.model}}"
+              value: "{{inputs.artifacts.model}}"      
             - name: BUCKET_NAME 
               valueFrom:
                 secretKeyRef:
@@ -65,4 +65,4 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: object-store-credentials   
-                  key: secret_access_key
+                  key: secret_access_key 
