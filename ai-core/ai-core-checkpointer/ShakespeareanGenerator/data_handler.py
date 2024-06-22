@@ -11,6 +11,7 @@ class DataHandler:
         self.logging = Logger()
         self.training_params = TrainingParameters()
         self.path = path
+        self.data = None
         
     def get_data(self):
 
@@ -24,7 +25,8 @@ class DataHandler:
             
 
     def get_batch(self, split):
-        self.get_data()
+        if self.data is None:
+            self.get_data()
 
         tokenizer = Tokenizer()
         
