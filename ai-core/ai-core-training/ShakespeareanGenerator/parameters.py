@@ -2,16 +2,6 @@
 import os
 import torch
 
-import json
-
-# Load the configuration from the JSON file
-with open('env.json') as f:
-    config = json.load(f)
-
-# Set each environment variable using the %env magic command
-for key, value in config.items():
-    os.environ[key] = value
-
 class TrainingParameters:
     def __init__(self):
         self.batch_size = int(os.environ.get('BATCH_SIZE'))
@@ -24,11 +14,11 @@ class TrainingParameters:
         self.attention_heads = int(os.environ.get('ATTENTION_HEADS'))
         self.num_layers = int(os.environ.get('NUM_LAYERS'))
         self.dropout = float(os.environ.get('DROPOUT'))
-        self.dictionary_size = int(os.environ.get('DICTIONARY_SIZE')) + 6 # special chars + 1
+        self.dictionary_size = int(os.environ.get('DICTIONARY_SIZE')) + 6
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-        self.DATA_PATH = './app/data/tinyshakespeare.txt'
-        self.MODEL_PATH = './app/model/'
-        self.TOKENIZER_MODEL_PATH = './app/tokenizer/'
-        self.LOG_PATH = './app/logs/'
+        self.DATA_PATH = '/app/data/tinyshakespeare.txt'
+        self.MODEL_PATH = '/app/model/'
+        self.TOKENIZER_MODEL_PATH = '/app/tokenizer/'
+        self.LOG_PATH = '/app/logs/'
         self.LOG_NAME = 'train_logs.log'
