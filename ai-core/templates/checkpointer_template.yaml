@@ -16,7 +16,7 @@ metadata:
     artifacts.ai.sap.com/bpe_model.kind: "model"
     artifacts.ai.sap.com/bpe_model.description: "Byte-Pair Encoding Tokenizer"    
     artifacts.ai.sap.com/bpe_model.labels: | 
-        {"ext.ai.sap.com/step":"train", "ext.ai.sap.com/version":"0.0.1"}     
+        {"ext.ai.sap.com/step":"train", "ext.ai.sap.com/version":"0.0.1"}
     artifacts.ai.sap.com/setuplogs.kind: "other"
     artifacts.ai.sap.com/setuplogs.description: "Setup Logs"
     artifacts.ai.sap.com/setuplogs.labels: | 
@@ -77,7 +77,7 @@ spec:
             none:
               {}
     container:
-      image: docker.io/carlosbasto/shakespeare-checkpointer-setup:0.0.1
+      image: docker.io/<your_docker_user>/shakespeare-checkpointer-setup:0.0.1
       imagePullPolicy: Always
       command: ["/bin/sh", "-c"]
       args: 
@@ -129,7 +129,7 @@ spec:
             none:
               {}                
     container:
-      image: docker.io/carlosbasto/shakespeare-checkpointer:0.0.1
+      image: docker.io/<your_docker_user>/shakespeare-checkpointer:0.0.1
       imagePullPolicy: Always
       command: ["/bin/sh", "-c"]
       args: 
