@@ -1,0 +1,4 @@
+ai_core_sdk==2.1.1
+boto3==1.21.33
+Flask==3.0.3
+tokenizers==0.19.1

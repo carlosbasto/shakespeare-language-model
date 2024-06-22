@@ -1,0 +1,9 @@
+---
+applications:
+- name: ai-core-app
+  random-route: true
+  path: ./
+  memory: 128M
+  buildpacks: 
+  - python_buildpack
+  command: streamlit run main.py --server.port 8080

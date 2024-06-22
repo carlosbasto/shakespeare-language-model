@@ -1,0 +1,147 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: "shakespeare-model-tuner"
+  annotations:
+    scenarios.ai.sap.com/name: "shakespeare-language-model"
+    scenarios.ai.sap.com/description: "Shakespeare Language Model"
+    executables.ai.sap.com/name: "Shakespeare-language-model-tuner"
+    executables.ai.sap.com/description: "Shakespeare Language Model Tuner Executable"
+    artifacts.ai.sap.com/data.kind: "dataset"
+    artifacts.ai.sap.com/data.description: "Instruct Dataset Modern vs Shakespeare" 
+    artifacts.ai.sap.com/model.kind: "model"
+    artifacts.ai.sap.com/model.description: "Fine Tuned Language Model"
+    artifacts.ai.sap.com/model.labels: | 
+        {"ext.ai.sap.com/step":"fine-tune", "ext.ai.sap.com/version":"0.0.1"}         
+    artifacts.ai.sap.com/bpe_model.kind: "model"
+    artifacts.ai.sap.com/bpe_model.description: "Byte-Pair Encoding Tokenizer"    
+    artifacts.ai.sap.com/bpe_model.labels: | 
+        {"ext.ai.sap.com/step":"fine-tune", "ext.ai.sap.com/version":"0.0.1"}     
+    artifacts.ai.sap.com/setuplogs.kind: "other"
+    artifacts.ai.sap.com/setuplogs.description: "Fine-Tuning Logs"
+    artifacts.ai.sap.com/setuplogs.labels: | 
+        {"ext.ai.sap.com/step":"setup", "ext.ai.sap.com/version":"0.0.1"}
+    artifacts.ai.sap.com/logs.kind: "other"
+    artifacts.ai.sap.com/logs.description: "Model Training Logs"
+    artifacts.ai.sap.com/logs.labels: | 
+        {"ext.ai.sap.com/step":"fine-tune", "ext.ai.sap.com/version":"0.0.1"}    
+  labels:
+    scenarios.ai.sap.com/id: "shakespeare-language-model"
+    executables.ai.sap.com/id: "shakespeare-tuner"
+    ai.sap.com/version: "0.0.1"
+spec:
+  imagePullSecrets:
+    - name: shakespeare-docker-repo
+  entrypoint: core
+  arguments:
+    parameters:
+      - name: BATCH_SIZE
+        description: The number of training examples processed in one iteration during training. It determines the size of each batch in the training dataset.
+      - name: ITERATION_LIMIT
+        description: Specifies the maximum number of iterations or training steps to be performed during the training process. It controls the duration of the training loop.
+      - name: EVAL_FREQUENCY
+        description: Indicates how often model evaluation occurs during training, measured in the number of iterations or epochs between evaluations.
+      - name: EVAL_STEPS
+        description: Represents the number of evaluation steps to perform during each evaluation period. It determines the granularity of evaluation within each evaluation cycle.
+      - name: LEARNING_RATE
+        description: The rate at which the model parameters are updated during training, influencing the size of the steps taken in the parameter space to minimize the loss function.
+      - name: DROPOUT
+        description: The probability of dropping out neurons or connections between layers during training, helping prevent overfitting by randomly deactivating some units.
+      - name: LORA_RANK
+        description: Controls the rank or order of the LoRA (Low Rank Attention) mechanism used in the model. It determines the level of low-rank approximation employed to reduce computation in attention mechanisms.
+      - name: LORA_ALPHA
+        description: Specifies the scaling factor or coefficient applied within the LoRA (Low Rank Attention) mechanism. It regulates the influence or importance of the low-rank approximation on the attention scores, impacting computational efficiency and model performance.
+  templates:
+  - name: core
+    steps:
+      - - name: setup
+          template: setup-pipeline
+      - - name: train
+          template: train-pipeline        
+  - name: setup-pipeline
+    metadata:
+      labels:
+        ai.sap.com/resourcePlan: basic
+    outputs:
+      artifacts:
+        - name: setup_logs
+          globalName: setup_logs
+          path: /app/logs/
+          archive:
+            none:
+              {}
+    container:
+      image: docker.io/carlosbasto/shakespeare-fine-tuner-setup:0.0.1
+      imagePullPolicy: Always
+      command: ["/bin/sh", "-c"]
+      args: 
+          - python /app/src/main.py 
+      env:
+      - name: BUCKET_NAME 
+        valueFrom:
+          secretKeyRef:
+            name: object-store-credentials   
+            key: bucket
+      - name: PREFIX_NAME 
+        valueFrom:
+          secretKeyRef:
+            name: object-store-credentials   
+            key: path_prefix            
+      - name: ACCESS_KEY_ID 
+        valueFrom:
+          secretKeyRef:
+            name: object-store-credentials   
+            key: access_key_id        
+      - name: SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: object-store-credentials   
+            key: secret_access_key
+  - name: train-pipeline
+    metadata:
+      labels:
+        ai.sap.com/resourcePlan: train.l
+    inputs:
+      artifacts:
+        - name: data
+          path: /app/data/
+        - name: input_model
+          path: /app/input_model/
+        - name: input_tokenizer
+          path: /app/input_tokenizer/          
+    outputs:
+      artifacts:
+        - name: model
+          path: /app/model/
+          globalName: model
+          archive:
+            none:
+              {}
+        - name: logs
+          path: /app/logs/
+          archive:
+            none:
+              {}                
+    container:
+      image: docker.io/carlosbasto/shakespeare-fine-tuner:0.0.1
+      imagePullPolicy: Always
+      command: ["/bin/sh", "-c"]
+      args: 
+          - python /app/src/main.py
+      env:
+      - name: BATCH_SIZE 
+        value: "{{workflow.parameters.BATCH_SIZE}}"
+      - name: ITERATION_LIMIT 
+        value: "{{workflow.parameters.ITERATION_LIMIT}}"
+      - name: EVAL_FREQUENCY 
+        value: "{{workflow.parameters.EVAL_FREQUENCY}}"
+      - name: EVAL_STEPS 
+        value: "{{workflow.parameters.EVAL_STEPS}}"
+      - name: LEARNING_RATE 
+        value: "{{workflow.parameters.LEARNING_RATE}}"
+      - name: DROPOUT 
+        value: "{{workflow.parameters.DROPOUT}}"
+      - name: LORA_RANK 
+        value: "{{workflow.parameters.LORA_RANK}}"
+      - name: LORA_ALPHA 
+        value: "{{workflow.parameters.LORA_ALPHA}}"                

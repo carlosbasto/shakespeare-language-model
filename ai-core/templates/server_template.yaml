@@ -1,0 +1,68 @@
+apiVersion: ai.sap.com/v1alpha1
+kind: ServingTemplate
+metadata:
+  name: shakespeare-model-generator-api
+  annotations:
+    scenarios.ai.sap.com/name: "shakespeare-language-model"
+    scenarios.ai.sap.com/description: "Shakespeare Language Model"
+    executables.ai.sap.com/name: "Shakespeare-language-model-generator"
+    executables.ai.sap.com/description: "Shakespeare Language Model Text Generator"
+    artifacts.ai.sap.com/logs.kind: "other"
+    artifacts.ai.sap.com/logs.description: "Model Training Logs"
+    artifacts.ai.sap.com/logs.labels: | 
+        {"ext.ai.sap.com/step":"train", "ext.ai.sap.com/version":"0.0.1"}        
+  labels:
+    scenarios.ai.sap.com/id: "shakespeare-language-model"
+    executables.ai.sap.com/id: "shakespeare-generator"
+    ai.sap.com/version: "0.0.1"
+spec:
+  inputs:
+      artifacts:
+        - name: model
+  template:
+    apiVersion: "serving.kserve.io/v1beta1" 
+    metadata:
+       annotations: |
+         autoscaling.knative.dev/metric: concurrency
+         autoscaling.knative.dev/target: 1
+         autoscaling.knative.dev/targetBurstCapacity: 0
+       labels: |
+         ai.sap.com/resourcePlan: infer.m
+    spec: |
+       predictor:
+         imagePullSecrets:
+         - name: shakespeare-docker-repo
+         minReplicas: 1
+         maxReplicas: 5
+         containers:
+         - name: kserve-container
+           image: docker.io/carlosbasto/shakespeare-server-generator:0.0.1
+           ports:
+             - containerPort: 9001
+               protocol: TCP   
+           command: ["/bin/sh", "-c"]
+           args:
+             - "python /app/src/main.py"
+           env:
+            - name: STORAGE_URI # Required
+              value: "{{inputs.artifacts.model}}"
+            - name: BUCKET_NAME 
+              valueFrom:
+                secretKeyRef:
+                  name: object-store-credentials   
+                  key: bucket
+            - name: PREFIX_NAME 
+              valueFrom:
+                secretKeyRef:
+                  name: object-store-credentials   
+                  key: path_prefix            
+            - name: ACCESS_KEY_ID 
+              valueFrom:
+                secretKeyRef:
+                  name: object-store-credentials   
+                  key: access_key_id        
+            - name: SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: object-store-credentials   
+                  key: secret_access_key

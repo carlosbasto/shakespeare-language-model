@@ -1,0 +1,160 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: "shakespeare-model"
+  annotations:
+    scenarios.ai.sap.com/name: "shakespeare-language-model"
+    scenarios.ai.sap.com/description: "Shakespeare Language Model"
+    executables.ai.sap.com/name: "Shakespeare-language-model-trainer"
+    executables.ai.sap.com/description: "Shakespeare Language Model Trainer Executable"
+    artifacts.ai.sap.com/data.kind: "dataset"
+    artifacts.ai.sap.com/data.description: "Tiny Shakespeare Dataset" 
+    artifacts.ai.sap.com/model.kind: "model"
+    artifacts.ai.sap.com/model.description: "Trained Language Model"
+    artifacts.ai.sap.com/model.labels: | 
+        {"ext.ai.sap.com/step":"train", "ext.ai.sap.com/version":"0.0.1"}         
+    artifacts.ai.sap.com/bpe_model.kind: "model"
+    artifacts.ai.sap.com/bpe_model.description: "Byte-Pair Encoding Tokenizer"    
+    artifacts.ai.sap.com/bpe_model.labels: | 
+        {"ext.ai.sap.com/step":"train", "ext.ai.sap.com/version":"0.0.1"}     
+    artifacts.ai.sap.com/setuplogs.kind: "other"
+    artifacts.ai.sap.com/setuplogs.description: "Setup Logs"
+    artifacts.ai.sap.com/setuplogs.labels: | 
+        {"ext.ai.sap.com/step":"setup", "ext.ai.sap.com/version":"0.0.1"}
+    artifacts.ai.sap.com/logs.kind: "other"
+    artifacts.ai.sap.com/logs.description: "Model Training Logs"
+    artifacts.ai.sap.com/logs.labels: | 
+        {"ext.ai.sap.com/step":"train", "ext.ai.sap.com/version":"0.0.1"}    
+  labels:
+    scenarios.ai.sap.com/id: "shakespeare-language-model"
+    executables.ai.sap.com/id: "shakespeare-trainer"
+    ai.sap.com/version: "0.0.1"
+spec:
+  imagePullSecrets:
+    - name: shakespeare-docker
+  entrypoint: core
+  arguments:
+    parameters:
+      - name: BATCH_SIZE
+        description: The number of training examples processed in one iteration during training. It determines the size of each batch in the training dataset.
+      - name: CONTEXT_LENGTH
+        description: Defines the maximum length of input sequences, typically representing the number of tokens in each sequence or block of text.
+      - name: ITERATION_LIMIT
+        description: Specifies the maximum number of iterations or training steps to be performed during the training process. It controls the duration of the training loop.
+      - name: EVAL_FREQUENCY
+        description: Indicates how often model evaluation occurs during training, measured in the number of iterations or epochs between evaluations.
+      - name: EVAL_STEPS
+        description: Represents the number of evaluation steps to perform during each evaluation period. It determines the granularity of evaluation within each evaluation cycle.
+      - name: LEARNING_RATE
+        description: The rate at which the model parameters are updated during training, influencing the size of the steps taken in the parameter space to minimize the loss function.
+      - name: EMBEDDING_DIM
+        description: Determines the dimensionality of the embedding vectors used to represent tokens in the model. It impacts the expressive power of the model's embedding layer.
+      - name: ATTENTION_HEADS
+        description: Specifies the number of parallel attention heads in the multi-head attention mechanism of the model. Each head learns different aspects of the input data.
+      - name: NUM_LAYERS
+        description: Represents the total number of transformer layers in the model architecture. It controls the depth and complexity of the model.
+      - name: DROPOUT
+        description: The probability of dropping out neurons or connections between layers during training, helping prevent overfitting by randomly deactivating some units.
+      - name: DICTIONARY_SIZE
+        description: Indicates the size of the vocabulary or dictionary used by the model, representing the total number of unique tokens or words in the dataset vocabulary.
+  templates:
+  - name: core
+    steps:
+      - - name: setup
+          template: setup-pipeline
+      - - name: train
+          template: train-pipeline
+  - name: setup-pipeline
+    metadata:
+      labels:
+        ai.sap.com/resourcePlan: basic
+    outputs:
+      artifacts:
+        - name: setuplogs
+          globalName: setuplogs
+          path: /app/logs/
+          archive:
+            none:
+              {}
+    container:
+      image: docker.io/carlosbasto/shakespeare-setup:0.0.1
+      imagePullPolicy: Always
+      command: ["/bin/sh", "-c"]
+      args: 
+          - python /app/src/main.py 
+      env:
+      - name: BUCKET_NAME 
+        valueFrom:
+          secretKeyRef:
+            name: object-store-credentials   
+            key: bucket
+      - name: PREFIX_NAME 
+        valueFrom:
+          secretKeyRef:
+            name: object-store-credentials   
+            key: path_prefix            
+      - name: ACCESS_KEY_ID 
+        valueFrom:
+          secretKeyRef:
+            name: object-store-credentials   
+            key: access_key_id        
+      - name: SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: object-store-credentials   
+            key: secret_access_key          
+  - name: train-pipeline
+    metadata:
+      labels:
+        ai.sap.com/resourcePlan: train.l
+    inputs:
+      artifacts:
+        - name: data
+          path: /app/data/
+    outputs:
+      artifacts:
+        - name: model
+          globalName: model
+          path: /app/model/
+          archive:
+            none:
+              {}       
+        - name: bpe_model
+          path: /app/tokenizer/
+          archive:
+            none:
+              {}      
+        - name: logs
+          path: /app/logs/
+          archive:
+            none:
+              {}               
+    container:
+      image: docker.io/carlosbasto/shakespeare-training:0.0.1
+      imagePullPolicy: Always
+      command: ["/bin/sh", "-c"]
+      args: 
+          - python /app/src/main.py
+      env:
+      - name: BATCH_SIZE 
+        value: "{{workflow.parameters.BATCH_SIZE}}"
+      - name: CONTEXT_LENGTH 
+        value: "{{workflow.parameters.CONTEXT_LENGTH}}"
+      - name: ITERATION_LIMIT 
+        value: "{{workflow.parameters.ITERATION_LIMIT}}"
+      - name: EVAL_FREQUENCY 
+        value: "{{workflow.parameters.EVAL_FREQUENCY}}"
+      - name: EVAL_STEPS 
+        value: "{{workflow.parameters.EVAL_STEPS}}"
+      - name: LEARNING_RATE 
+        value: "{{workflow.parameters.LEARNING_RATE}}"
+      - name: EMBEDDING_DIM 
+        value: "{{workflow.parameters.EMBEDDING_DIM}}"
+      - name: ATTENTION_HEADS 
+        value: "{{workflow.parameters.ATTENTION_HEADS}}"
+      - name: NUM_LAYERS 
+        value: "{{workflow.parameters.NUM_LAYERS}}"
+      - name: DROPOUT 
+        value: "{{workflow.parameters.DROPOUT}}"
+      - name: DICTIONARY_SIZE 
+        value: "{{workflow.parameters.DICTIONARY_SIZE}}"
