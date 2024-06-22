@@ -26,7 +26,6 @@ def initialize():
 @app.route('/v2/generate', methods=["POST"])
 def generate_text():
     data = request.get_json()
-    # max_tokens = int(data.get('max_tokens', 300))
     max_tokens = 256 # up to the pre-trained model.
     temperature = float(data.get('temperature', 1.0))
     top_k = int(data.get('top_k', 0))
