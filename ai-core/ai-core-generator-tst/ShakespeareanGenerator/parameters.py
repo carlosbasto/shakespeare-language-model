@@ -2,22 +2,12 @@
 import os
 import torch
 
-import json
-
-# Load the configuration from the JSON file
-with open('env.json') as f:
-    config = json.load(f)
-
-# Set each environment variable using the %env magic command
-for key, value in config.items():
-    os.environ[key] = value
-
 
 class TrainingParameters:
     def __init__(self):
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.INPUT_MODEL = './mnt/models/style-transfer-model.pkl' 
-        self.INPUT_TOKENIZER_MODEL = './mnt/models/'
+        self.INPUT_MODEL = '/mnt/models/style-transfer-model.pkl' 
+        self.INPUT_TOKENIZER_MODEL = '/mnt/models/'
 
 
 class LogParameters:
