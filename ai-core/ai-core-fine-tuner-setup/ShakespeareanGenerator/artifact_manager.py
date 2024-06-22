@@ -103,7 +103,7 @@ class ObjectStoreArtifactManager:
         return self.latest_execution_id
 
     def upload_file_to_object_store(self):
-        url = "https://raw.githubusercontent.com/carlosbasto/tst/main/shakespeare-style-transfer.txt"
+        url = "https://raw.githubusercontent.com/carlosbasto/shakespeare-language-model/main/ai-core/ai-core-datasets/shakespeare-style-transfer.txt"
         
         file_key = f"{self.obj_parameters.prefix}{self.obj_parameters.DATA_PATH + self.obj_parameters.DATA_NAME}"
         try:
