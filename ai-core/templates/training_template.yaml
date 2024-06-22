@@ -17,9 +17,9 @@ metadata:
     artifacts.ai.sap.com/bpe_model.description: "Byte-Pair Encoding Tokenizer"    
     artifacts.ai.sap.com/bpe_model.labels: | 
         {"ext.ai.sap.com/step":"train", "ext.ai.sap.com/version":"0.0.1"}     
-    artifacts.ai.sap.com/setuplogs.kind: "other"
-    artifacts.ai.sap.com/setuplogs.description: "Setup Logs"
-    artifacts.ai.sap.com/setuplogs.labels: | 
+    artifacts.ai.sap.com/setup_logs.kind: "other"
+    artifacts.ai.sap.com/setup_logs.description: "Setup Logs"
+    artifacts.ai.sap.com/setup_logs.labels: | 
         {"ext.ai.sap.com/step":"setup", "ext.ai.sap.com/version":"0.0.1"}
     artifacts.ai.sap.com/logs.kind: "other"
     artifacts.ai.sap.com/logs.description: "Model Training Logs"
@@ -70,8 +70,8 @@ spec:
         ai.sap.com/resourcePlan: basic
     outputs:
       artifacts:
-        - name: setuplogs
-          globalName: setuplogs
+        - name: setup_logs
+          globalName: setup_logs
           path: /app/logs/
           archive:
             none:
