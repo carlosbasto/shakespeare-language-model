@@ -6,7 +6,7 @@ metadata:
     scenarios.ai.sap.com/name: "shakespeare-language-model"
     scenarios.ai.sap.com/description: "Shakespeare Language Model"
     executables.ai.sap.com/name: "Shakespeare-language-model-style-transfer"
-    executables.ai.sap.com/description: "Shakespeare Language Model for Style Transfer"
+    executables.ai.sap.com/description: "Shakespeare Style Transfer Model"
     artifacts.ai.sap.com/logs.kind: "other"
     artifacts.ai.sap.com/logs.description: "Model Training Logs"
     artifacts.ai.sap.com/logs.labels: | 
@@ -36,7 +36,7 @@ spec:
          maxReplicas: 5
          containers:
          - name: kserve-container
-           image: docker.io/carlosbasto/shakespeare-server-generator-tst:0.0.1
+           image: docker.io/<your_docker_user>/shakespeare-server-generator-tst:0.0.1
            ports:
              - containerPort: 9001
                protocol: TCP   
