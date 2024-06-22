@@ -1,5 +1,7 @@
 # Shakespeare Language Model with SAP AI Core
 
+A detailed series of blog posts has been created to guide you through all the steps below. Check it out: [SAP AI Core is All You Need](https://community.sap.com/t5/technology-blogs-by-sap/sap-ai-core-is-all-you-need/ba-p/13687784)
+
 ## Welcome to the "SAP AI Core is All You Need" Series!
 
 We are happy to have you join us on this exciting (or at least I think it is) journey into the world of AI and Language Models using SAP AI Core and SAP AI Launchpad. This introductory blog will give you a sneak peek into what you can expect from each installment of this series, as well as offer you an agenda to organize the way you read the blogs. Our aim is to guide you through the powerful capabilities of SAP AI Core, helping you build, deploy, and manage your own AI models with ease. And guess what? We'll be doing this together for the next several blogs. Hold tight!
