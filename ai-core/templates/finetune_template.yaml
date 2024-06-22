@@ -71,7 +71,7 @@ spec:
             none:
               {}
     container:
-      image: docker.io/carlosbasto/shakespeare-fine-tuner-setup:0.0.1
+      image: docker.io/<your_docker_user>/shakespeare-fine-tuner-setup:0.0.1
       imagePullPolicy: Always
       command: ["/bin/sh", "-c"]
       args: 
@@ -123,7 +123,7 @@ spec:
             none:
               {}                
     container:
-      image: docker.io/carlosbasto/shakespeare-fine-tuner:0.0.1
+      image: docker.io/<your_docker_user>/shakespeare-fine-tuner:0.0.1
       imagePullPolicy: Always
       command: ["/bin/sh", "-c"]
       args: 
@@ -144,4 +144,4 @@ spec:
       - name: LORA_RANK 
         value: "{{workflow.parameters.LORA_RANK}}"
       - name: LORA_ALPHA 
-        value: "{{workflow.parameters.LORA_ALPHA}}"                
+        value: "{{workflow.parameters.LORA_ALPHA}}"
